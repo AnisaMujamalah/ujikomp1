@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\Dashboard;
-
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\SiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('siswa',[SiswaController::class,'index'])->name('siswa');
+Route::get('siswa/create',[SiswaController::class,'create'])->name('siswa.create');
+
  Route::get('login',[LoginController::class,'view'])->name('login')->middleware('guest');
  Route::post('login',[LoginController::class,'proses'])->name('login.proses')->middleware('guest');
 
-Route::get('/dashboard/admin',[Dasboard::class,'admin'])->name('dasboard.admin')->middleware(['auth', 'level:admin,petugas']);
-Route::get('/dashboard/petugas',[Dashboard::class,'petugas'])->name('dasboard.petugas')->middleware('auth');
+ Route::get('logout', [LoginController::class, 'logout'])->name('logout-petugas');
+
+Route::get('/dashboard/admin',[DashboardController::class,'admin'])->name('dashboard.admin')->middleware(['auth', 'level:admin,petugas']);
+Route::get('/dashboard/petugas',[DashboardController::class,'petugas'])->name('dashboard.petugas')->middleware('auth');
 
 Route::view('error/403', 'eror.403')->name('eror.403');

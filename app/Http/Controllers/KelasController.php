@@ -25,6 +25,7 @@ class KelasController extends Controller
     public function create()
     {
         //
+        
     }
 
     /**

@@ -18,8 +18,8 @@ class CheckLevel
      */
     public function handle(Request $request, Closure $next)
     {
-       $level = array_slice(func_get_args(), 2);
-       foreach ($level as $level) {
+       $levels = array_slice(func_get_args(), 2);
+       foreach ($levels as $level) {
         $user = Auth::user()->level;
         if ($user == $level){
             return $next($request);
