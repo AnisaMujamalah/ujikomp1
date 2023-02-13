@@ -5,6 +5,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\SppController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +33,9 @@ Route::get('siswa/create',[SiswaController::class,'create'])->name('siswa.create
 
 Route::get('/dashboard/admin',[DashboardController::class,'admin'])->name('dashboard.admin')->middleware(['auth', 'level:admin,petugas']);
 Route::get('/dashboard/petugas',[DashboardController::class,'petugas'])->name('dashboard.petugas')->middleware('auth');
+
+Route::resource('siswa', SiswaController::class);
+Route::resource('spp', SppController::class)->middleware(['auth','level:admin']);
+
 
 Route::view('error/403', 'eror.403')->name('eror.403');

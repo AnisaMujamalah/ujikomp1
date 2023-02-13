@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+
+
 class LoginController extends Controller
 {
     //
-    public function view()
+    public function view ()
     {
-        return view('auth.login');
+        return view ('auth.login');
     }
     public function proses(Request $request)
     {
@@ -17,12 +20,13 @@ class LoginController extends Controller
             'username' => 'required',
             'password' => 'required'
         ]);
-        if (Auth::attempt($user))
 
+         if (Auth::attempt($user))
             $request->session()->regenerate();
             $user = Auth::user();
+
             if ($user->level == 'admin')
-            {
+            { 
                 return redirect()->route('dashboard.admin');
             } else if ($user->level == 'petugas');
                 return redirect()->route('dashboard.petugas');
