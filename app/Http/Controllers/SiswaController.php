@@ -15,9 +15,7 @@ class SiswaController extends Controller
     public function index()
     {
         //
-        $siswas = siswa::select('id', 'nis',
-        'nama', 'kelas_id')->get();
-        return view('siswa.index', compact('siswas'));
+        return view('siswa.index');
     }
 
     /**
@@ -28,8 +26,7 @@ class SiswaController extends Controller
     public function create()
     {
         //
-        $siswas = siswa::all();
-        return view('siswa.create', compact('siswas'));
+        return view('siswa.create');
     }
 
     /**
@@ -42,14 +39,19 @@ class SiswaController extends Controller
     {
         //
         $request->validate([
-            'nisn' => 'required',
-            'nis' => 'required',
+            'nisn' => 'required|max:10',
+            'nis' => 'required|max:8',
             'nama' => 'required',
             'alamat' => 'required',
             'no_tlp' => 'required',
             'kelas_id' => 'required',
             'spps_id' => 'required'
+        ],[
+            'nisn.required'    => 'Nisn Wajib Di Isi',
+            'nis.max'         => 'Nis Wajib Di Isi',
         ]);
+
+        dd($request);
 
         Siswa::create([
             'nisn' => $request -> nisn,
@@ -57,7 +59,7 @@ class SiswaController extends Controller
             'nama' => $request -> nama,
             'alamat' => $request -> alamat,
             'no_tlp' => $request -> no_tlp,
-            'kelas_id' => $reqreuest -> kelas_id,
+            'kelas_id' => $request -> kelas_id,
             'spps_id' => $request -> spps_id
         ]);
         return redirect()->route('siswa.index');

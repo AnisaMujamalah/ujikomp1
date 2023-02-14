@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 Route::get('siswa',[SiswaController::class,'index'])->name('siswa');
-Route::get('siswa/create',[SiswaController::class,'create'])->name('siswa.create');
+Route::get('siswa/create',[SiswaController::class,'create'])->name('siswa.create')->middleware('guest');
 
  Route::get('login',[LoginController::class,'view'])->name('login')->middleware('guest');
  Route::post('login',[LoginController::class,'proses'])->name('login.proses')->middleware('guest');
